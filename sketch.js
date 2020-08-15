@@ -10,17 +10,40 @@ var world, engine;
 var ground1;
 
 function setup() {
-  createCanvas(510,810);
+  createCanvas(540,810);
 
   //creating the engine and the world
   engine = Engine.create();
   world = engine.world;
 
-  //creating the objects
-  ground1 = new Ground(240, 790, 80, 20);
-  division1 = new Division(190, 700);
-  division2 = new Division(290, 700);
+  //arrays for storing the objects
+  groundArray = [];
+  divisionArray = [];
 
+  //cooridnates of the grounds for using them in a loop.
+  //gnd means a ground
+  gndCorX = 70;//the starting x coordinate
+
+  //cooridnates of the grounds for using them in a loop.
+  //div means a division
+  divCorX = 20;//the starting x coordinate
+
+  //creating the objects
+  for(var i = 0; i < 5; i++) {
+    //creating all the grounds
+    groundArray.push(new Ground(gndCorX, 790, 80, 20));
+    gndCorX += 100;//this changes the x coordinate of the ground. 
+    //100 = 40+20+40 = halfGroundWidth + division's Width + halfGroundWidth
+  }
+
+  for(i = 0; i < 6; i++) {
+    //creating all the divisions
+    divisionArray.push(new Division(divCorX, 700));
+    divCorX += 100;//this changes the x coordinate of the divisions. 
+    //100 = 10+80+10 = halfDivisionWidth + ground's Width + halfdivisionWidth
+  }
+
+  console.log(groundArray);
 }
 
 function draw() {
@@ -31,9 +54,9 @@ function draw() {
   rectMode(CENTER);//makes all the rectangles in relation to its center
   
   //displaying the objects
-  ground1.display();
-  division1.display();
-  division2.display();
+  groundArray.forEach((item, index) => item.display());
+  divisionArray.forEach((item, index) => item.display());
+
 }
 
 function clearBackground(){
@@ -45,6 +68,6 @@ function clearBackground(){
   stroke("brown");
   strokeWeight(20);
   fill("black");
-  rect(width/2, height/2, 510, 810);
+  rect(width/2, height/2, 540, 810);
   pop();
 } 

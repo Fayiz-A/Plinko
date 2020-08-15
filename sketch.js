@@ -17,8 +17,17 @@ function setup() {
   world = engine.world;
 
   //arrays for storing the objects
+  borderArray = [];
   groundArray = [];
   divisionArray = [];
+
+  //array for the positions and the dimesions of the borders
+  borderPosArray = [[width - 10, height/2, 20, height], [10, height/2, 20, height], [width/2, height-10, width, 20]];
+  
+  //borders
+  for(var i = 0; i<borderPosArray.length; i++) {
+    borderArray.push(new Border(borderPosArray[i][0], borderPosArray[i][1], borderPosArray[i][2], borderPosArray[i][3]));
+  }
 
   //cooridnates of the grounds for using them in a loop.
   //gnd means a ground
@@ -52,14 +61,16 @@ function draw() {
   Engine.update(engine);//updates the engine continuously
 
   rectMode(CENTER);//makes all the rectangles in relation to its center
-
+  
   //displaying the objects
+  borderArray.forEach((item, index) => item.display());
   groundArray.forEach((item, index) => item.display());
   divisionArray.forEach((item, index) => item.display());
 
   pegArray.forEach((item, index) => item.display());
 
   if (frameCount % 60 == 0) {
+    //draws a particle after every 60 frames
     drawParticle();
   }
 
@@ -114,7 +125,8 @@ function drawPegs() {
 }
 
 function drawParticle() {
-  particleCorX = random(20, 220);
+  //this function draws the particles
+  particleCorX = random(50, 690);
   particleColour = [random(0, 255), random(0, 255), random(0, 255)];
 
   particleArray.push(new Particle(particleCorX, -20, 10, particleColour));

@@ -6,9 +6,6 @@ const Body = Matter.Body;
 
 var world, engine;
 
-//object variables
-var ground1;
-
 function setup() {
   createCanvas(540,810);
 
@@ -43,7 +40,9 @@ function setup() {
     //100 = 10+80+10 = halfDivisionWidth + ground's Width + halfdivisionWidth
   }
 
-  console.log(groundArray);
+  peg = new Peg(200, 200, 10);
+  particle = new Particle(150, 100, 10, [random(0, 255), random(0, 255), random(0, 255)]);
+
 }
 
 function draw() {
@@ -56,6 +55,9 @@ function draw() {
   //displaying the objects
   groundArray.forEach((item, index) => item.display());
   divisionArray.forEach((item, index) => item.display());
+
+  peg.display();
+  particle.display();
 
 }
 

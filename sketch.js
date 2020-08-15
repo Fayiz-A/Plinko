@@ -21,10 +21,6 @@ function setup() {
   //gnd means a ground
   gndCorX = 70;//the starting x coordinate
 
-  //cooridnates of the grounds for using them in a loop.
-  //div means a division
-  divCorX = 20;//the starting x coordinate
-
   //creating the objects
   for(var i = 0; i < 5; i++) {
     //creating all the grounds
@@ -33,6 +29,10 @@ function setup() {
     //100 = 40+20+40 = halfGroundWidth + division's Width + halfGroundWidth
   }
 
+  //cooridnates of the divisions for using them in a loop.
+  //div means a division
+  divCorX = 20;//the starting x coordinate
+
   for(i = 0; i < 6; i++) {
     //creating all the divisions
     divisionArray.push(new Division(divCorX, 700));
@@ -40,9 +40,38 @@ function setup() {
     //100 = 10+80+10 = halfDivisionWidth + ground's Width + halfdivisionWidth
   }
 
-  peg = new Peg(200, 200, 10);
-  particle = new Particle(150, 100, 10, [random(0, 255), random(0, 255), random(0, 255)]);
+  //arrays for storing the objects
+  pegArray = [];
+  particleArray = [];
 
+
+  //cooridnates of the pegs for using them in a loop.
+  pegCorX = 50;//the starting x coordinate
+  pegCorY = 50;//the starting y coordinate
+
+  pegNumber = 8;//this will determine the number of pegs in a row
+
+  //loop for creating all the pegs
+  for(var row = 1; row <= 10; row++){
+    for(var col = 0; col <  pegNumber; col++){
+      pegArray.push(new Peg(pegCorX, pegCorY, 10));
+      pegCorX += 60;
+    }
+
+    if(row % 2 == 0) {
+      //if the row value is an even number, then this condition exucutes
+      pegCorX = 50;//starts making the pegs a little before
+      pegNumber = 8;
+    } 
+    else {
+      //if the row value is an odd number, then this condition exucutes
+      pegCorX = 75;//starts making the pegs after some more space
+      pegNumber = 7;//makes only seven pegs in that row
+      //these two things combined give a zig zag effect in making the pegs
+    }
+
+    pegCorY += 50;//moves to another row 
+  }
 }
 
 function draw() {
@@ -56,8 +85,8 @@ function draw() {
   groundArray.forEach((item, index) => item.display());
   divisionArray.forEach((item, index) => item.display());
 
-  peg.display();
-  particle.display();
+  pegArray.forEach((item, index) => item.display());
+  //particle.display((item, index) => item.display());
 
 }
 
